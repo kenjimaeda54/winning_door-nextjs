@@ -1,13 +1,28 @@
-import { useState, MouseEvent } from "react"
+import { useState, MouseEvent, useEffect } from "react"
 import Link from "next/link"
 import Door from "@/components/Door"
 import DoorModel from "@/models/DoorModel"
 import { createDoors } from "@/utils/createDoor"
 import { IoIosArrowBack } from "react-icons/io"
+import { useRouter } from "next/router"
 
 
 export default function Home() {
-  const [doors, setDoors] = useState(createDoors(100, 2))
+  const [doors, setDoors] = useState<DoorModel[]>([])
+  const { query } = useRouter()
+
+
+  useEffect(() => {
+    if (query.door === undefined || query.choose === undefined) return
+
+    if (query.door > query.choose) {
+      const doorsCollection: DoorModel[] = createDoors(+query.door, +query.choose)
+      setDoors(doorsCollection)
+      return
+    }
+
+  }, [query])
+
 
   const handleSelectedDoor = (door: DoorModel) => {
     const newsDoor: DoorModel[] = doors.map(it => {
@@ -34,9 +49,12 @@ export default function Home() {
         </div>
       </Link>
       <div className="flex my-[10px] justify-around gap-y-[15px] flex-wrap w-[100%]" >
-        {doors.map(it =>
-          <Door key={it.numberDoor} onClick={(e) => handleOpenDoor(e, it)} onClickDoor={() => handleSelectedDoor(it)} door={it} />
-        )}
+        {doors.length === 0 ?
+          <h3 className="flex h-[100vh]   items-center text-3xl text-white">Você possivelmente selecionou uma porta inexistente</h3>
+          :
+          doors.map(it =>
+            <Door key={it.numberDoor} onClick={(e) => handleOpenDoor(e, it)} onClickDoor={() => handleSelectedDoor(it)} door={it} />
+          )}
       </div>
     </div>
   )
