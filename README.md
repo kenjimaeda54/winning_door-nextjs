@@ -1,14 +1,14 @@
-# Qual e a porta vencedora
-Pequeno jogo onde a pessoa seleciona a quantidade e o adversario precisa descobrir onde esta o presente
+# Qual e a porta vencedora?
+Pequeno jogo onde a pessoa seleciona a quantidade e o adversário precisa descobrir onde está o presente
 
-#Motivacao
+# Motivação
 Praticar Next js
 
 
 # Feature
-- Para lidar com o modelo das portas, quando estava selecionado,quando deixou de selecionar,qual a quantidade, criamos uma classe
-- Essa classe implementava tudo que era necessario para a porta exiter e seus metodos
-- Se reparr a cada metodo retornavamos uma nova instancia da classe 
+- Para lidar com o modelo das portas e seu métodos como: porta está selecionado, deixou de selecionar, qual a quantidade, criamos uma classe
+- Essa classe implementava tudo que era necessário para a porta existir, inclusive   seus métodos
+- Se reparar a cada método retornávamos uma nova instância da classe 
 
 ```typescript
 export default class DoorModel {
@@ -60,14 +60,14 @@ export default class DoorModel {
 
 
 //=======
-// quem for usar o metodo disponiblizado
+// quem for usar o método disponibilizado
 className={`flex w-36 h-64 relative ${door.isOpen ? "bg-zinc-800" : "bg-orange-600"} border-x-8 border-t-8 ${door.isSelected && !door.isOpen ? "border-amber-400" : "border-amber-900"}`}
 
 ```
 ##
-- Trabalhei com passagem de parametros por rotas 
-- Para realizar isso criamos arquivos dinamicos como exemplo abaixo
-- Quando deseja um evento mais interno com um externo envolvendo ele e obrigatorio o uso do stopPropagation
+- Trabalhei com passagem de parâmetros por rotas 
+- Para realizar isso criamos arquivos dinâmicos como exemplo abaixo
+- Quando deseja um evento mais interno, e externamente tem outro evento envolvendo ele, é obrigatório o uso do stopPropagation
 
 ```typescript
 
@@ -102,9 +102,9 @@ className={`flex w-36 h-64 relative ${door.isOpen ? "bg-zinc-800" : "bg-orange-6
   }, [query])
   
   
-  //se possui um div dentro englobando um onclick
+     // exemplo como resolver onClick e acessando um valor mais interno
     function handleOpenDoor(e: MouseEvent, door: DoorModel) {
-    // eu tenho uma div englobando ela com um onclick por isso usamos esse metodo
+   
     e.stopPropagation()
     const newDoor: DoorModel[] = doors.map(it => {
       return it.numberDoor === door.numberDoor ? it.open() : it
