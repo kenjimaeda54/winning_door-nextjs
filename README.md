@@ -111,7 +111,9 @@ className={`flex w-36 h-64 relative ${door.isOpen ? "bg-zinc-800" : "bg-orange-6
     })
     setDoors(newDoor)
   }
-
+  doors.map(it =>
+            <Door key={it.numberDoor} onClick={(e) => handleOpenDoor(e, it)} onClickDoor={() => handleSelectedDoor(it)} door={it} />
+          )}
 
 
 ```
